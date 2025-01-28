@@ -1,0 +1,8 @@
+
+# Ignore colcon build files
+*/build/
+*/install/
+*/log/
+
+# Ignore all log files
+*.log

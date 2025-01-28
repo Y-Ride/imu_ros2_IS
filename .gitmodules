@@ -1,0 +1,3 @@
+[submodule "ros2_ws/src/inertial-sense-sdk"]
+	path = ros2_ws/src/inertial-sense-sdk
+	url = git@github.com:Y-Ride/inertial-sense-sdk.git
