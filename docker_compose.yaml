@@ -8,7 +8,8 @@ services:
     environment:
       ROS_DOMAIN_ID: 1
       # - DISPLAY=${DISPLAY}
-    
+    volumes:
+      - ${HOME}/imu_ros2_IS/ros2_ws/src/gps_time_publisher:/ros2_ws/src/gps_time_publisher:rw
     network_mode: host
     privileged: true
     stdin_open: true
