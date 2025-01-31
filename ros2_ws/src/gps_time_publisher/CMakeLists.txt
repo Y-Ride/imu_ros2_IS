@@ -17,8 +17,8 @@ target_include_directories(gps_time_publisher PUBLIC
 target_compile_features(gps_time_publisher PUBLIC c_std_99 cxx_std_17)  # Require C99 and C++17
 ament_target_dependencies(
   gps_time_publisher
-  "rclcpp"
-  # inertial_sense_ros2
+  rclcpp
+  inertial_sense_ros2
 )
 
 # target_link_libraries(gps_time_publisher inertial_sense_ros2) 
