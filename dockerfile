@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y \
 # Copy the local repository from the host into the container
 WORKDIR /ros2_ws/src
 COPY ./ros2_ws/src/inertial-sense-sdk ./inertial-sense-sdk
+COPY ./ros2_ws/src/gps_time_publisher ./gps_time_publisher
 
 # Install sdk dependencies
 RUN cd ./inertial-sense-sdk/scripts && \
@@ -45,6 +46,11 @@ RUN . /opt/ros/jazzy/setup.sh && \
 # Source the setup file
 RUN echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc && \
     echo 'source /ros2_ws/install/setup.bash' >> ~/.bashrc
+
+# Copy in the bash script to start the ros2 topics and set the entry point 
+COPY ./start_ros2_in_docker.sh /start_ros2_in_docker.sh
+RUN chmod +x /start_ros2_in_docker.sh
+ENTRYPOINT [ "/start_ros2_in_docker.sh" ]
 
 # Default command to open a bash shell
 CMD ["/bin/bash"]
