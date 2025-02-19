@@ -11,6 +11,7 @@ services:
     volumes:
       - ./logs:/logs:rw
     #   - ${HOME}/imu_ros2_IS/ros2_ws/src/gps_time_publisher:/ros2_ws/src/gps_time_publisher:rw
+    # entrypoint: ["/bin/bash", "-c", "exec bash"] # Use this when you need to override the default entrypoint that starts the ros2 nodes
     network_mode: host
     privileged: true
     stdin_open: true
