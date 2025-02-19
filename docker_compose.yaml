@@ -1,8 +1,6 @@
 services:
   imu_ros2:
     build: .
-    # volumes:
-      # - ./ros2_ws:/ros2_ws
     image: imu_ros2
     container_name: imu_ros2
     environment:
