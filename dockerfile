@@ -1,5 +1,7 @@
-# Use the ROS 2 Jazzy image as the base
-FROM ros:jazzy
+# Use the ROS 2 $ROS_DISTRO image as the base
+ARG ROS_DISTRO=jazzy
+
+FROM ros:$ROS_DISTRO
 
 # Set the working directory
 WORKDIR /ros2_ws/src
@@ -27,7 +29,8 @@ COPY ./ros2_ws/src/gps_time_publisher ./gps_time_publisher
 
 # Install sdk dependencies
 RUN cd ./inertial-sense-sdk/scripts && \
-    # mkdir -p .venv && \
+    # ./build_ros2.sh
+    mkdir -p .venv && \
     python3 -m venv .venv && \
     . .venv/bin/activate && \
     pip install pyyaml
@@ -39,12 +42,12 @@ RUN cd inertial-sense-sdk/scripts && \
 RUN ln -s inertial-sense-sdk/ROS/ros2
 
 # Build the workspace
-RUN . /opt/ros/jazzy/setup.sh && \
+RUN . /opt/ros/$ROS_DISTRO/setup.sh && \
     cd /ros2_ws && \
     colcon build
 
 # Source the setup file
-RUN echo 'source /opt/ros/jazzy/setup.bash' >> ~/.bashrc && \
+RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
     echo 'source /ros2_ws/install/setup.bash' >> ~/.bashrc
 
 # Copy in the bash script to start the ros2 topics and set the entry point 

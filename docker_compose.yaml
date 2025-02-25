@@ -1,14 +1,17 @@
 services:
   imu_ros2:
-    build: .
-    image: imu_ros2
-    container_name: imu_ros2
+    build:
+      context: .
+      args:
+        - ROS_DISTRO=humble
+    image: imu_ros2_humble
+    container_name: imu_ros2_humble
     environment:
       ROS_DOMAIN_ID: 1
       # - DISPLAY=${DISPLAY}
     volumes:
       - ./logs:/logs:rw
-    #   - ${HOME}/imu_ros2_IS/ros2_ws/src/gps_time_publisher:/ros2_ws/src/gps_time_publisher:rw
+      # - ${HOME}/imu_ros2_IS/ros2_ws/src:/ros2_ws/src:rw
     # entrypoint: ["/bin/bash", "-c", "exec bash"] # Use this when you need to override the default entrypoint that starts the ros2 nodes
     network_mode: host
     privileged: true

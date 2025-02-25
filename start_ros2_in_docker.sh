@@ -4,7 +4,7 @@
 mkdir -p /logs
 
 # Source ROS 2 setup
-source /opt/ros/jazzy/setup.bash
+source /opt/ros/${ROS_DISTRO}/setup.bash
 source /ros2_ws/install/setup.bash 
 
 # Run ROS 2 launch commands inside the container

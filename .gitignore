@@ -10,4 +10,6 @@
 # Ignore vscode settings
 .vscode/
 
-
+# Ignore any trash files
+**/trash
+**/Trash
