@@ -9,10 +9,12 @@ services:
     environment:
       ROS_DOMAIN_ID: 1
       # - DISPLAY=${DISPLAY}
+    devices:
+      - "/dev/ttyACM0:/dev/ttyACM0"
     volumes:
       - ./logs:/logs:rw
-      - ${HOME}/imu_ros2_IS/ros2_ws/src:/ros2_ws/src:rw
-    entrypoint: ["/bin/bash", "-c", "exec bash"] # Use this when you need to override the default entrypoint that starts the ros2 nodes
+      # - ${HOME}/imu_ros2_IS/ros2_ws/src:/ros2_ws/src:rw
+    # entrypoint: ["/bin/bash", "-c", "exec bash"] # Use this when you need to override the default entrypoint that starts the ros2 nodes
     network_mode: host
     privileged: true
     stdin_open: true
