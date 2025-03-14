@@ -58,7 +58,7 @@ public:
     GPSTimePublisher() : Node("gps_time_publisher")
     {
         subscription_ = this->create_subscription<inertial_sense_ros2::msg::GPS>(
-            "/gps1/pos_vel", 10, std::bind(&GPSTimePublisher::gps_callback, this, std::placeholders::_1)
+            "/inertial_sense/gps1/pos_vel", 10, std::bind(&GPSTimePublisher::gps_callback, this, std::placeholders::_1)
         );
 
         // Open virtual serial port

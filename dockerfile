@@ -1,5 +1,5 @@
 # Use the ROS 2 $ROS_DISTRO image as the base
-ARG ROS_DISTRO=jazzy
+ARG ROS_DISTRO=humble
 
 FROM ros:$ROS_DISTRO
 
@@ -23,8 +23,13 @@ COPY ./ros2_ws/src/inertial-sense-sdk ./inertial-sense-sdk
 COPY ./ros2_ws/src/gps_time_publisher ./gps_time_publisher
 
 # Install sdk dependencies
+# The build_ros2.sh does colcon build for the inertial sense packages only
 RUN cd ./inertial-sense-sdk/scripts && \
     ./build_ros2.sh
+
+RUN cd ../ && \
+    . /opt/ros/${ROS_DISTRO}/setup.sh && \
+    colcon build --packages-select gps_time_publisher
 
 # Source the setup file
 RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
