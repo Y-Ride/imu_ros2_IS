@@ -8,14 +8,18 @@ services:
     container_name: imu_ros2_humble
     environment:
       ROS_DOMAIN_ID: 1
-      # - DISPLAY=${DISPLAY}
-    devices:
-      - "/dev/ttyACM0:/dev/ttyACM0"
+      RCUTILS_COLORIZED_OUTPUT: 1
+      CONTAINER_NAME: imu
     volumes:
-      - ./logs:/logs:rw
-    #   - ${HOME}/imu_ros2_IS/ros2_ws/src:/ros2_ws/src:rw
+      - /dev:/dev # Having issues with name of ttyACM0 changing. This is a temporary solution
+      - ./log_imu:/log_imu:rw
+      - ${HOME}/yride_env_setup:/yride_env_setup:ro
+      - ${HOME}/imu_ros2_IS/ros2_ws/src/ros2/launch/params.yaml:/ros2_ws/src/ros2/launch/params.yaml
+      # - ${HOME}/imu_ros2_IS/ros2_ws/src:/ros2_ws/src:rw
+      # - ./start_ros2_in_docker.sh:/start_ros2_in_docker.sh
     # entrypoint: ["/bin/bash", "-c", "exec bash"] # Use this when you need to override the default entrypoint that starts the ros2 nodes
     network_mode: host
     privileged: true
     stdin_open: true
     tty: true
+    working_dir: /ros2_ws

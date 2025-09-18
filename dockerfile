@@ -35,9 +35,18 @@ RUN cd ../ && \
 RUN echo 'source /opt/ros/${ROS_DISTRO}/setup.bash' >> ~/.bashrc && \
     echo 'source /ros2_ws/install/setup.bash' >> ~/.bashrc
 
+
 # Copy in the bash script to start the ros2 topics and set the entry point 
 COPY ./start_ros2_in_docker.sh /start_ros2_in_docker.sh
-RUN chmod +x /start_ros2_in_docker.sh
+# RUN chmod +x /start_ros2_in_docker.sh
+COPY ./ros2_ws/src/run_inertial_sense_node.sh /ros2_ws/src/run_inertial_sense_node.sh
+
+# Include the custom environment setup script
+RUN echo "if [ -f /yride_env_setup/custom_env.sh ]; then" >> ~/.bashrc && \
+    echo "  source /yride_env_setup/custom_env.sh" >> ~/.bashrc && \
+    echo "fi" >> ~/.bashrc
+
+# Run the script
 ENTRYPOINT [ "/start_ros2_in_docker.sh" ]
 
 # Default command to open a bash shell
